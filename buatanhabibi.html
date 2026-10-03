@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,sans-serif;color:#fff;
+  background:linear-gradient(135deg,#16001f,#4b0b45,#16001f);
+  min-height:100vh;overflow-x:hidden
+}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.heart{position:absolute;bottom:-30px;font-size:22px;animation:up 7s linear infinite;opacity:.7}
+@keyframes up{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+.container{max-width:700px;margin:auto;padding:25px 16px 50px;text-align:center}
+.card{
+  background:rgba(255,255,255,.1);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.18);border-radius:25px;
+  padding:28px 20px;margin-top:35px;box-shadow:0 15px 50px #0005
+}
+h1{font-size:38px;margin:10px 0;color:#ffd5ee}
+h2{color:#ffd5ee}
+p{line-height:1.8;color:#ffeaf6}
+input{
+  width:100%;padding:14px;border:0;border-radius:14px;
+  outline:none;font-size:16px;margin:10px 0;background:#fff;color:#333
+}
+button{
+  border:0;border-radius:14px;padding:13px 20px;margin:7px;
+  font-size:15px;font-weight:bold;cursor:pointer;background:#ff5ca8;color:white;
+  box-shadow:0 7px 20px #ff5ca844
+}
+button:hover{transform:scale(1.03)}
+.hidden{display:none}
+.message{
+  text-align:left;background:rgba(0,0,0,.18);padding:20px;
+  border-radius:18px;margin-top:20px
+}
+.photo{
+  width:100%;height:220px;border-radius:18px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#ff78b7,#7d2cff);
+  font-size:70px;margin:18px 0
+}
+.small{font-size:13px;opacity:.7}
+#namaTampil{color:#ffb9dd}
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+
+<div class="container">
+  <div class="card">
+    <div style="font-size:55px">💗</div>
+    <h1>Untuk Kamu</h1>
+    <p>Website kecil ini dibuat khusus untuk seseorang yang spesial.</p>
+
+    <div id="awal">
+      <input id="nama" placeholder="Masukkan nama kamu..." maxlength="30">
+      <button onclick="mulai()">Buka Pesannya 💌</button>
+    </div>
+
+    <div id="isi" class="hidden">
+      <h2>Hai, <span id="namaTampil"></span> ❤️</h2>
+      <div class="photo">💑</div>
+
+      <div class="message">
+        <p>
+          Aku mungkin nggak selalu pandai merangkai kata, tapi ada satu hal
+          yang ingin aku sampaikan: kehadiranmu punya arti yang besar.
+          Terima kasih sudah menjadi bagian dari cerita yang begitu indah.
+        </p>
+        <p>
+          Semoga setiap hari selalu ada alasan untuk tersenyum,
+          setiap langkah dipenuhi hal-hal baik, dan semua impianmu
+          perlahan menjadi nyata. 🌷
+        </p>
+        <p>
+          Kalau suatu hari kamu merasa lelah, ingatlah bahwa kamu tetap
+          seseorang yang berharga. Jangan lupa tersenyum, ya. ❤️
+        </p>
+      </div>
+
+      <h2>Mau tahu satu rahasia? 🤫</h2>
+      <button onclick="rahasia()">Mau 💕</button>
+      <button onclick="tidak()">Nggak 😆</button>
+
+      <div id="rahasia" class="hidden message">
+        <p>
+          Rahasianya adalah... website ini mungkin sederhana,
+          tapi dibuat dengan niat baik untuk membuat harimu sedikit lebih manis. 💖
+        </p>
+      </div>
+
+      <button onclick="bagikan()">📤 Bagikan Website</button>
+      <p class="small">Dibuat dengan ❤️ untuk seseorang yang spesial.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function mulai(){
+  const nama=document.getElementById("nama").value.trim();
+  if(!nama){alert("Masukkan nama dulu ya ❤️");return}
+  document.getElementById("namaTampil").textContent=nama;
+  document.getElementById("awal").classList.add("hidden");
+  document.getElementById("isi").classList.remove("hidden");
+}
+function rahasia(){
+  document.getElementById("rahasia").classList.remove("hidden");
+}
+function tidak(){
+  alert("Yah, padahal ada rahasia 😆❤️");
+}
+async function bagikan(){
+  const data={title:"Untuk Kamu ❤️",text:"Ada pesan kecil untuk kamu 💌",url:location.href};
+  if(navigator.share){
+    try{await navigator.share(data)}catch(e){}
+  }else{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      alert("Link website berhasil disalin! 📋");
+    }catch(e){alert("Salin link dari alamat browser kamu ya.")}
+  }
+}
+function buatHati(){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=["❤️","💗","💖","💕","💘"][Math.floor(Math.random()*5)];
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=(5+Math.random()*5)+"s";
+  h.style.fontSize=(15+Math.random()*20)+"px";
+  document.getElementById("hearts").appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+}
+setInterval(buatHati,700);
+</script>
+</body>
+</html>
